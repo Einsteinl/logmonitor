@@ -3,6 +3,7 @@ package logMonitor.utils;
 import logMonitor.dao.LogMonitorDao;
 import logMonitor.mail.MailInfo;
 import logMonitor.mail.MessageSender;
+import logMonitor.sms.AliSms;
 import logMonitor.sms.SMSBase;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -33,8 +34,7 @@ public class MonitorHandler {
     private static List<User> userList;
     //定时加载配置文件的标识
     private static boolean reloaded = false;
-    //定时加载配置文件的标识
-    private static long nextReload = 0l;
+
 
     static {
         load();
@@ -252,8 +252,10 @@ public class MonitorHandler {
                 break;
             }
         }
-        String content = "系统【" + message.getAppName() + "】在 " + DateUtils.getDateTime() + " 触发规则 " + message.getRuleId() + ",关键字：" + message.getKeyword();
-        return SMSBase.sendSms(listToStringFormat(mobileList), content);
+        //String content = "系统【" + message.getAppName() + "】在 " + DateUtils.getDateTime() + " 触发规则 " + message.getRuleId() + ",关键字：" + message.getKeyword();
+        //return SMSBase.sendSms(listToStringFormat(mobileList), content);
+        String content=message.getAppName()+","+message.getKeyword();;
+        return AliSms.sendSms(listToStringFormat(mobileList), content);
     }
 
     /**
@@ -278,6 +280,7 @@ public class MonitorHandler {
         if (receiver.size() >= 1) {
             String date = DateUtils.getDateTime();
             String content = "系统【" + message.getAppName() + "】在 " + date + " 触发规则 " + message.getRuleId() + " ，过滤关键字为：" + message.getKeyword() + "  错误内容：" + message.getLine();
+
             MailInfo mailInfo = new MailInfo("系统运行日志监控", content, receiver, null);
             return MessageSender.sendMail(mailInfo);
         }
@@ -330,7 +333,7 @@ public class MonitorHandler {
             ruleMap = loadRuleMap();
             userMap = loadUserMap();
             reloaded = false;
-            nextReload = 0l;
+
             logger.info("配置文件reload完成，时间："+DateUtils.getDateTime()+" 耗时："+ (System.currentTimeMillis()-start));
         }
 
@@ -348,19 +351,16 @@ public class MonitorHandler {
      *      在reload时间段时，第一个线程进入reloadDataModel后，加载完毕之后会将reloaded置为false。
      */
     public static void scheduleLoad() {
-//        String date = DateUtils.getDateTime();
-//        int now = Integer.parseInt(date.split(":")[1]);
-//        if (now % 10 == 0) {//每10分钟加载一次
-//            //1,2,3,4,5,6
-//            reloadDataModel();
-//        }else {
-//            reloaded = true;
-//        }
-
-        if (System.currentTimeMillis()==nextReload){
-            //thread 1,2,3,
+        String date = DateUtils.getDateTime();
+        int now = Integer.parseInt(date.split(":")[1]);
+        if (now % 10 == 0) {//每10分钟加载一次
+            //1,2,3,4,5,6
             reloadDataModel();
+        }else {
+            reloaded = true;
         }
+
+
 
 
     }

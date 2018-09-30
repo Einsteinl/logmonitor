@@ -10,7 +10,7 @@ import logAnalyze.storm.domain.LogMessage;
 import logAnalyze.storm.utils.LogAnalyzeHandler;
 
 /**
- * Describe: 请补充类描述
+ * Describe: 主要作用是对日志信息进行解析和过滤
  * Author:   maoxiangyi
  * Domain:   www.itcast.cn
  * Data:     2015/11/16.
@@ -22,6 +22,7 @@ public class MessageFilterBolt extends BaseBasicBolt {
         String line = input.getString(0);
         //对数据进行解析
         LogMessage logMessage = LogAnalyzeHandler.parser(line);
+        //对日志进行过滤，剔除那些不做分析的日志
         if (logMessage == null || !LogAnalyzeHandler.isValidType(logMessage.getType())) {
             return;
         }

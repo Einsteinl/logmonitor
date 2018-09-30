@@ -55,7 +55,7 @@ public class SMSBase {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(sendSms("15652306418", "传智播客日志监控平台-系统1发生异常，需要处理！"));
+        System.out.println(sendSms("15222871082", "传智播客日志监控平台-系统1发生异常，需要处理！"));
 //        String result = "000/Send:1/Consumption:.1/Tmoney:1.8/sid:1112144311751362";
 //        if (StringUtils.isNotBlank(result)) {
 //            if (result.substring(0, 3).equals("000")) {

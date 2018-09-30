@@ -15,7 +15,7 @@
             <![CDATA[jdbc:mysql://127.0.0.1:3306/log_monitor?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true]]>
         </property>
         <property name="user">root</property>
-        <property name="password">root</property>
+        <property name="password">leishao</property>
     </default-config>
     <named-config name="logMonitor">
         <property name="c3p0.testConnectionOnCheckout">true</property>
@@ -33,7 +33,7 @@
             <![CDATA[jdbc:mysql://127.0.0.1:3306/log_monitor?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true]]>
         </property>
         <property name="user">root</property>
-        <property name="password">root</property>
+        <property name="password">leishao</property>
     </named-config>
     <named-config name="logAnalyze">
         <property name="checkoutTimeout">30000</property>
@@ -50,7 +50,7 @@
             <![CDATA[jdbc:mysql://127.0.0.1:3306/log_analyze?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true]]>
         </property>
         <property name="user">root</property>
-        <property name="password">root</property>
+        <property name="password">leishao</property>
     </named-config>
     <named-config name="orderMonitor">
         <property name="checkoutTimeout">30000</property>
@@ -67,6 +67,6 @@
             <![CDATA[jdbc:mysql://127.0.0.1:3306/order_monitor?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true]]>
         </property>
         <property name="user">root</property>
-        <property name="password">root</property>
+        <property name="password">leishao</property>
     </named-config>
 </c3p0-config>
